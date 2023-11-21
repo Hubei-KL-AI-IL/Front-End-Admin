@@ -1,6 +1,4 @@
-/* eslint-disable */
 // @ts-ignore
-// import { request } from 'umi';
 
 /** 发送验证码 POST /api/login/captcha */
 // export async function getFakeCaptcha(

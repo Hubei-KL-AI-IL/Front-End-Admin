@@ -10,29 +10,34 @@ declare namespace API {
     signature?: string;
     title?: string;
     group?: string;
-    tags?: { key?: string; label?: string }[];
+    tags?: {
+      key?: string;
+      label?: string;
+    }[];
     notifyCount?: number;
     unreadCount?: number;
     country?: string;
     access?: string;
     geographic?: {
-      province?: { label?: string; key?: string };
-      city?: { label?: string; key?: string };
+      province?: {
+        label?: string;
+        key?: string;
+      };
+      city?: {
+        label?: string;
+        key?: string;
+      };
     };
     address?: string;
     phone?: string;
   };
 
-
   type LoginResult = {
     code?: 1000;
     data?: {
-      token: string
+      token: string;
     };
-    message?: "登录成功";
-    // status?: string;
-    // type?: string;
-    // currentAuthority?: string;
+    message?: '登录成功';
   };
 
   type PageParams = {
@@ -83,35 +88,40 @@ declare namespace API {
   // }
 
   type DocItem = {
-    id?:number;
-    block?:string;
-    group?:string;
-    title?:string;
-    content?:string;
-    create_at?:string;
+    id?: number;
+    block?: string;
+    group?: string;
+    title?: string;
+    content?: string;
+    create_at?: string;
   };
 
   type DocListItem = {
-      id?:number;
-      block?:string;
-      group?:string;
-      title?:string;
-      content?:string;
-      create_at?:number;
+    id?: number;
+    block?: string;
+    group?: string;
+    title?: string;
+    content?: string;
+    create_at?: number;
   };
 
   type DocList = {
     code?: 1000;
     data?: {
-        Docs: DocListItem[];
+      Docs: DocListItem[];
     };
-    message?: "get document success";
-  }
+    message?: 'get document success';
+  };
+
+  type AddDocResult = {
+    code: 1000;
+    message: 'create document success';
+  };
 
   type RemoveDocResult = {
     code: 1000;
     message: 'delete document success';
-  }
+  };
 
   type LoginParams = {
     username?: string;

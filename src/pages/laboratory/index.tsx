@@ -1,7 +1,7 @@
-import { PageContainer } from '@ant-design/pro-components';
-import React, { useEffect, useState } from 'react';
-import {Button, message, Space, Table} from 'antd';
 import { getDocs, removeDoc } from '@/services/ant-design-pro/api';
+import { PageContainer } from '@ant-design/pro-components';
+import { Button, message, Space, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
 
 type DocListItem = {
@@ -19,6 +19,8 @@ const { Column } = Table;
 const Laboratory: React.FC = () => {
   const [docs, setDocs] = useState<DocListItem[]>([]);
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const formatDate = (timeStamp: number) => {
     const t = new Date(timeStamp);
     return `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
@@ -26,6 +28,7 @@ const Laboratory: React.FC = () => {
 
   useEffect(() => {
     let newDocs: DocListItem[] = [];
+    setLoading(true);
     getDocs({
       block: '实验室概况',
       group: '实验室介绍',
@@ -60,6 +63,7 @@ const Laboratory: React.FC = () => {
               }
             });
             setDocs(newDocs);
+            setLoading(false);
           });
         });
       });
@@ -67,30 +71,23 @@ const Laboratory: React.FC = () => {
   }, []);
 
   return (
-    <PageContainer>
-      <div
-        style={{
-          width: '100%',
-          padding: '16px',
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <Button
-          type={'primary'}
-          size={'large'}
-          style={{
-            borderRadius: '8px',
-            width: '100px',
-          }}
-          onClick={() => {
-            history.push('/admin/edit');
-          }}
-        >
-          新增
-        </Button>
-      </div>
-      <Table dataSource={docs}>
+    <PageContainer
+      header={{
+        extra: [
+          <Button
+            key="new"
+            type={'primary'}
+            size={'large'}
+            onClick={() => {
+              history.push('/admin/edit', { block: '实验室概况' });
+            }}
+          >
+            新增
+          </Button>,
+        ],
+      }}
+    >
+      <Table dataSource={docs} loading={loading}>
         <Column title="模块" dataIndex="block" key="block" />
         <Column title="分组" dataIndex="group" key="group" />
         <Column title="标题" dataIndex="title" key="title" />
@@ -102,36 +99,29 @@ const Laboratory: React.FC = () => {
             <Space size="middle">
               <a
                 onClick={() => {
-                  history.push({
-                    pathname: '/admin/edit',
-                    state: {
-                      doc: record,
-                    },
-                  });
+                  history.push('/admin/edit', record);
                 }}
               >
                 编辑
               </a>
               <a
                 onClick={() => {
-                  removeDoc({ id: record.id }).then(
-                    res => {
-                      if(res.message && res.message === 'delete document success') {
+                  removeDoc({ id: record.id })
+                    .then((res) => {
+                      if (res.message && res.message === 'delete document success') {
                         message.success('删除成功!');
                         const newDocs = docs.filter((doc) => {
                           return doc.id !== record.id;
-                        })
+                        });
                         setDocs(newDocs);
                       } else {
                         message.error('出错了，请重试');
                       }
-                    }
-                  ).catch(
-                    err => {
+                    })
+                    .catch((err) => {
                       console.log(err);
                       message.error('出错了，请重试');
-                    }
-                  )
+                    });
                 }}
               >
                 删除
