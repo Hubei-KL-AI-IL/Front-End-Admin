@@ -22,6 +22,7 @@ class Worker {
     this.onmessage(msg);
   }
 }
+
 window.Worker = Worker;
 
 /* eslint-disable global-require */

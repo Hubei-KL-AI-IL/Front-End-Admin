@@ -281,6 +281,7 @@ const Edit: React.FC = () => {
               <Cascader
                 options={options}
                 expandTrigger="hover"
+                /* @ts-ignore*/
                 onChange={changeGroup}
                 placeholder="请选择分组"
                 defaultValue={[group[0], group[1]]}
