@@ -14,13 +14,7 @@ export default [
   {
     path: '/user',
     layout: false,
-    routes: [
-      {
-        name: '登录',
-        path: '/user/login',
-        component: './user/Login',
-      },
-    ],
+    routes: [{ name: '登录', path: '/user/login', component: './user/Login' }],
   },
   {
     path: '/admin',
@@ -28,8 +22,7 @@ export default [
     icon: 'crown',
     // access: 'canAdmin',
     routes: [
-      { path: '/admin', redirect: '/admin/home' },
-      { path: '/admin/home', name: '首页', component: './Welcome' },
+      { path: '/admin', redirect: '/admin/laboratory' },
       { path: '/admin/laboratory', name: '实验室概况', component: './laboratory/index' },
       { path: '/admin/team', name: '科研队伍', component: './team/index' },
       { path: '/admin/research', name: '科学研究', component: './research/index' },
@@ -37,17 +30,10 @@ export default [
       { path: '/admin/news', name: '新闻动态', component: './news/index' },
       { path: '/admin/cooperate', name: '合作交流', component: './cooperate/index' },
       { path: '/admin/contact', name: '联系我们', component: './contact/index' },
-      { path: '/admin/edit', name: '编辑文档', component: './editDoc/index' },
       { component: './404' },
     ],
   },
-  {
-    path: '/',
-    redirect: '/admin',
-  },
-  {
-    path: '*',
-    layout: false,
-    component: './404',
-  },
+  { path: '/', redirect: '/admin' },
+  { path: '/admin/edit', layout: false, name: '编辑文档', component: './editDoc/index' },
+  { path: '*', layout: false, component: './404' },
 ];

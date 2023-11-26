@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
 // import {getFakeCaptcha} from '@/services/ant-design-pro/login';
 import {
@@ -138,8 +137,8 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
+          // logo={<img alt="logo" src="/logo.svg" />}
+          title="华中师范大学"
           subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
           initialValues={{
             autoLogin: true,
@@ -336,7 +335,7 @@ const Login: React.FC = () => {
           {/*</div>*/}
         </LoginForm>
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </div>
   );
 };

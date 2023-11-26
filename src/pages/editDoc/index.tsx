@@ -72,8 +72,7 @@ const Edit: React.FC = () => {
   }
 
   const [group, setGroup] = useState<string[]>([state.block || '', state.group || '']);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const changeGroup = (value: string[], selectedOptions: Groups[]) => {
+  const changeGroup = (value: string[]) => {
     setGroup(value);
   };
   const options: Groups[] = [
@@ -211,7 +210,10 @@ const Edit: React.FC = () => {
         title: title,
         create_at: Number(new Date()),
         content: content,
-      }).then(message.success('提交成功'));
+      }).then(() => {
+        message.success('提交成功');
+        history.back();
+      });
     }
     if (!title) {
       message.error('标题不能为空');
@@ -334,6 +336,7 @@ const Edit: React.FC = () => {
               quickbars_selection_toolbar:
                 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
               quickbars_insert_toolbar: false,
+              toolbar_sticky: true,
               link_context_toolbar: true,
               placeholder: '请输入文字......',
               auto_focus: 'textarea',

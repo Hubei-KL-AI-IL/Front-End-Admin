@@ -17,7 +17,9 @@ const Settings: ProLayoutProps & {
   pwa: true,
   colorWeak: false,
   title: '人工智能与智慧学习湖北省重点实验室',
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  // @ts-ignore
+  logo: null,
+  // logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式

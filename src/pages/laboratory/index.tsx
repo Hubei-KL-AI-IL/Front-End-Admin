@@ -1,6 +1,6 @@
 import { getDocs, removeDoc } from '@/services/ant-design-pro/api';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, message, Space, Table } from 'antd';
+import { Button, message, Modal, Space, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
 
@@ -70,6 +70,23 @@ const Laboratory: React.FC = () => {
     });
   }, []);
 
+  const handleDelete = (id: number) => {
+    Modal.confirm({
+      title: '删除',
+      content: '确定删除吗？',
+      onOk: () => {
+        removeDoc({
+          id,
+        }).then((res) => {
+          if (res.code === 1000 && res.message === 'delete document success') {
+            message.success('删除成功');
+            setDocs(docs.filter((doc) => doc.id !== id));
+          }
+        });
+      },
+    });
+  };
+
   return (
     <PageContainer
       header={{
@@ -106,22 +123,7 @@ const Laboratory: React.FC = () => {
               </a>
               <a
                 onClick={() => {
-                  removeDoc({ id: record.id })
-                    .then((res) => {
-                      if (res.message && res.message === 'delete document success') {
-                        message.success('删除成功!');
-                        const newDocs = docs.filter((doc) => {
-                          return doc.id !== record.id;
-                        });
-                        setDocs(newDocs);
-                      } else {
-                        message.error('出错了，请重试');
-                      }
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                      message.error('出错了，请重试');
-                    });
+                  handleDelete(record.id as number);
                 }}
               >
                 删除
